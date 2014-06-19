@@ -1,0 +1,22 @@
+{
+  "name": "quiz.io",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/joebandenburg/quiz.io.git"
+  },
+  "author": "Joe Bandenburg",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/joebandenburg/quiz.io/issues"
+  },
+  "dependencies": {
+    "express": "~4.4.3",
+    "socket.io": "~1.0.5"
+  }
+}
