@@ -22,15 +22,25 @@ var broadcastParticipants = function() {
 
 io.on('connection', function(socket) {
     console.log('a user connected');
+    var participant;
     socket.on('join', function(name) {
         console.log('"' + name  + '" joined');
-        participants.push({
+        participant = {
             name: name,
             score: 0
+        };
+        participants.push(participant);
+        broadcastParticipants();
+        setTimeout(function() {
+            socket.emit('joined');
+        }, 10000);
+    });
+    socket.on('disconnect', function() {
+        participants = participants.filter(function(otherParticipant) {
+            return participant !== otherParticipant;
         });
         broadcastParticipants();
-        socket.emit('joined');
-    });
+    })
 });
 
 http.listen(3000, function() {

@@ -38,3 +38,17 @@ body {
 .login-page input {
     margin: 10px 0;
 }
+
+.joining {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -1.5em;
+    width: 200px;
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.8);
+}

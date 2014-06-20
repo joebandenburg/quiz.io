@@ -25,16 +25,27 @@
         };
     });
 
-    app.controller('QuizController', function($scope, socket) {
+    app.controller('QuizController', function(socket) {
         var self = this;
+
+        self.name = '';
+        self.joining = false;
         self.joined = false;
 
+        socket.on('joined', function() {
+            self.joining = false;
+            self.joined = true;
+        });
+
         self.join = function() {
+            self.joining = true;
+            localStorage.setItem('name', self.name);
             socket.emit('join', self.name);
         };
 
-        socket.on('joined', function() {
-            self.joined = true;
-        });
+        if (localStorage.getItem('name')) {
+            self.name = localStorage.getItem('name');
+            self.join();
+        }
     });
 })();
