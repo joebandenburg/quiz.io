@@ -1,0 +1,40 @@
+body {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.login-page {
+    position: absolute;
+    transition: top 0.6s, opacity 2s;
+    left: 0;
+    right: 0;
+    top: 0;
+    min-height: 100%;
+}
+
+.login-page.slide-out {
+    top: -200%;
+    opacity: 0;
+}
+
+.login-page {
+    background: #4e5d6c linear-gradient(to bottom, #3B4751 0%,#4e5d6c 20%);
+}
+
+.login-page .jumbotron {
+    background-color: transparent;
+}
+
+.login-page label,
+.login-page p {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.login-page h1 {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+.login-page .control-label,
+.login-page input {
+    margin: 10px 0;
+}

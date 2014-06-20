@@ -24,4 +24,17 @@
             }
         };
     });
+
+    app.controller('QuizController', function($scope, socket) {
+        var self = this;
+        self.joined = false;
+
+        self.join = function() {
+            socket.emit('join', self.name);
+        };
+
+        socket.on('joined', function() {
+            self.joined = true;
+        });
+    });
 })();
