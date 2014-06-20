@@ -9,6 +9,7 @@ body {
     right: 0;
     top: 0;
     min-height: 100%;
+    z-index: 1001;
 }
 
 .login-page.slide-out {
@@ -52,3 +53,29 @@ body {
     border-radius: 100px;
     background-color: rgba(255, 255, 255, 0.8);
 }
+
+.question ol {
+    counter-reset: list;
+}
+
+.answer {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.answer:before {
+    content: counter(list, upper-alpha);
+    counter-increment: list;
+    margin-right: 20px;
+    display: inline-block;
+    font-size: 2em;
+}
+
+.navbar {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+

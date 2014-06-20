@@ -34,9 +34,46 @@
     </div>
 </div>
 <div class="joining" ng-show="quiz.joining">Joining...</div>
-<div>
-    <div class="col-sm-8"></div>
-    <div class="col-sm-4">{{quiz.name}}</div>
+<div ng-show="quiz.id">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div>
+            <span class="glyphicon glyphicon-user"></span>
+            <a href>{{quiz.name}}</a>
+        </div>
+        <div>
+            Score <span class="badge">{{quiz.score}}</span>
+        </div>
+    </nav>
+    <div class="col-sm-8">
+        <div class="question panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title pull-right">{{quiz.question.points}} points</h3>
+                <h3 class="panel-title">Question 1</h3>
+            </div>
+            <h3 class="panel-body" ng-bind-html="quiz.question.content"></h3>
+            <ol class="list-group">
+                <a href class="list-group-item"
+                   ng-repeat="answer in quiz.question.answers"
+                   ng-class="{ active: quiz.isSelected(answer) }" ng-click="quiz.selectAnswer(answer)">
+                    <li class="answer">
+                        <div ng-bind-html="answer.content"></div>
+                    </li>
+                </a>
+            </ol>
+            <div class="panel-footer">
+                <button class="btn btn-primary" ng-disabled="!quiz.selectedAnswer">Confirm choice</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 hidden-xs">
+        <h4>Participants</h4>
+        <ul class="list-group">
+            <li class="list-group-item" ng-class="{ 'list-group-item-info': participant.id === quiz.id }" ng-repeat="participant in quiz.participants">
+                <span class="badge">{{participant.score}}</span>
+                {{participant.name}}
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

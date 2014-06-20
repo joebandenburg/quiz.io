@@ -14,6 +14,8 @@ app.get('/app.css', function(req, res) {
     res.sendfile('app.css');
 });
 
+var idCounter = 0;
+
 var participants = [];
 
 var broadcastParticipants = function() {
@@ -26,14 +28,13 @@ io.on('connection', function(socket) {
     socket.on('join', function(name) {
         console.log('"' + name  + '" joined');
         participant = {
+            id: idCounter++,
             name: name,
             score: 0
         };
         participants.push(participant);
         broadcastParticipants();
-        setTimeout(function() {
-            socket.emit('joined');
-        }, 10000);
+        socket.emit('joined', participant.id);
     });
     socket.on('disconnect', function() {
         participants = participants.filter(function(otherParticipant) {
