@@ -54,14 +54,14 @@
             <ol class="list-group">
                 <a href class="list-group-item"
                    ng-repeat="answer in quiz.question.answers"
-                   ng-class="{ active: quiz.isSelected(answer) }" ng-click="quiz.selectAnswer(answer)">
+                   ng-class="{ active: quiz.isActive(answer), 'list-group-item-danger': quiz.isWrong(answer), 'list-group-item-success': quiz.isCorrect(answer) }" ng-click="quiz.selectAnswer(answer)">
                     <li class="answer">
                         <div ng-bind-html="answer.content"></div>
                     </li>
                 </a>
             </ol>
             <div class="panel-footer">
-                <button class="btn btn-primary" ng-disabled="!quiz.selectedAnswer">Confirm choice</button>
+                <button class="btn btn-primary" ng-click="quiz.revealAnswer = true" ng-disabled="!quiz.selectedAnswer">Confirm choice</button>
             </div>
         </div>
     </div>

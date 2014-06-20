@@ -58,6 +58,10 @@ body {
     counter-reset: list;
 }
 
+.question .list-group-item {
+    transition: background-color, 0.3s;
+}
+
 .answer {
     display: flex;
     align-items: center;
@@ -78,4 +82,3 @@ body {
     align-items: center;
     justify-content: space-between;
 }
-

@@ -34,6 +34,7 @@
         self.participants = [];
         self.id = null;
         self.score = 0;
+        self.revealAnswer = false;
 
         self.question = {
             content: $sce.trustAsHtml('What is the value of <code>a</code> after executing <code>var a = 3;</code>?'),
@@ -43,7 +44,8 @@
             }, {
                 content: $sce.trustAsHtml('<code>undefined</code>')
             }, {
-                content: $sce.trustAsHtml('<code>3</code>')
+                content: $sce.trustAsHtml('<code>3</code>'),
+                correct: true
             }, {
                 content: $sce.trustAsHtml('<code>Infinity</code>')
             }]
@@ -69,8 +71,16 @@
             self.selectedAnswer = answer;
         };
 
-        self.isSelected = function(answer) {
-            return self.selectedAnswer === answer;
+        self.isActive = function(answer) {
+            return self.selectedAnswer === answer || (self.revealAnswer && answer.correct);
+        };
+
+        self.isCorrect = function(answer) {
+            return (self.revealAnswer && answer.correct);
+        };
+
+        self.isWrong = function(answer) {
+            return (self.selectedAnswer === answer && self.revealAnswer && !answer.correct);
         };
 
         if (localStorage.getItem('name')) {
