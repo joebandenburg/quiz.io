@@ -20,7 +20,7 @@ var participants = [];
 
 var broadcastParticipants = function() {
     io.emit('participants changed', participants);
-}
+};
 
 io.on('connection', function(socket) {
     console.log('a user connected');

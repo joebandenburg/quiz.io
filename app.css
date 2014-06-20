@@ -9,7 +9,7 @@ body {
     right: 0;
     top: 0;
     min-height: 100%;
-    z-index: 1001;
+    z-index: 1010;
 }
 
 .login-page.slide-out {
@@ -40,6 +40,11 @@ body {
     margin: 10px 0;
 }
 
+.login-page input {
+    background-color: transparent;
+    color: #fff;
+}
+
 .joining {
     position: fixed;
     top: 50%;
@@ -52,6 +57,75 @@ body {
     text-align: center;
     border-radius: 100px;
     background-color: rgba(255, 255, 255, 0.8);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 10px;
+}
+
+.content {
+    flex-grow: 2;
+    padding: 20px;
+}
+
+.main-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 30%;
+    box-shadow: -4px 0 4px rgba(0, 0, 0, 0.5), 4px 0 4px rgba(0, 0, 0, 0.5);
+    z-index: 1002;
+}
+
+.side-bar {
+    background-color: #222;
+    position: absolute;
+    top: 0;
+    width: 30%;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    color: #fff;
+}
+
+.side-bar a {
+    color: #0ce3ac;
+}
+
+.side-bar .header {
+    margin: -10px 10px 30px 10px;
+}
+
+.side-bar .list-group-item {
+    background-color: #303030;
+    border-color: #464545;
+}
+
+.side-bar .panel {
+    background-color: #303030;
+}
+
+.side-bar .panel-default {
+    border-color: #464545;
+}
+
+.side-bar .panel-default > .panel-heading {
+    background-color: #464545;
+}
+
+.side-bar .panel-default > .panel-heading {
+    color: #ffffff;
+    border-color: #464545;
+}
+
+.side-bar .badge {
+    background-color: #464545;
 }
 
 .question ol {
@@ -76,9 +150,12 @@ body {
     font-size: 2em;
 }
 
-.navbar {
+.me {
+    color: #fff;
     font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    margin: 10px 20px;
+}
+
+.me a {
+
 }
