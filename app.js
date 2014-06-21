@@ -129,8 +129,12 @@
             socket.emit('update scores');
         };
 
+        self.canSelectAnswer = function() {
+            return !self.isLeader() && self.participant && self.participant.selectedAnswer === null;
+        };
+
         self.selectAnswer = function(answer) {
-            if (!self.isLeader() && self.participant.selectedAnswer === null) {
+            if (self.canSelectAnswer()) {
                 self.selectedAnswer = answer;
             }
         };

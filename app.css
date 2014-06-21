@@ -156,6 +156,10 @@ nav {
     transition: background-color, 0.3s;
 }
 
+.question.disable-select-answer a {
+    cursor: default;
+}
+
 .answer {
     display: flex;
     align-items: center;

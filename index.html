@@ -58,7 +58,7 @@
             </div>
         </nav>
         <div class="question panel panel-default"
-             ng-class="{ 'panel-success': !quiz.isLeader() && quiz.wasCorrectAnswer(), 'panel-danger': !quiz.isLeader() && quiz.wasWrongAnswer(), 'answer-revealed': quiz.state.answerRevealed }"
+             ng-class="{ 'panel-success': !quiz.isLeader() && quiz.wasCorrectAnswer(), 'panel-danger': !quiz.isLeader() && quiz.wasWrongAnswer(), 'answer-revealed': quiz.state.answerRevealed, 'disable-select-answer': !quiz.canSelectAnswer() }"
              ng-show="quiz.state.question">
             <div class="panel-heading">
                 <h3 class="panel-title pull-right">{{quiz.state.question.points}} points</h3>
