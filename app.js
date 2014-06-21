@@ -58,7 +58,7 @@
             self.participant = state.participants.filter(function(participant) {
                 return participant.uuid === uuid;
             })[0];
-            if (self.participant) {
+            if (self.participant && self.participant.selectedAnswer !== null) {
                 self.selectedAnswer = self.participant.selectedAnswer;
             }
             if (self.state.question) {
@@ -130,7 +130,9 @@
         };
 
         self.selectAnswer = function(answer) {
-            self.selectedAnswer = answer;
+            if (!self.isLeader() && self.participant.selectedAnswer === null) {
+                self.selectedAnswer = answer;
+            }
         };
 
         self.confirmAnswer = function() {
@@ -157,12 +159,19 @@
             return self.isAnswerActive(answer) && self.wasWrongAnswer();
         };
 
-        self.answeredParticipantsPercentage = function() {
-            var answeredParticipants = self.state.participants.filter(function(participant) {
+        self.answeredParticipants = function() {
+            return self.state.participants.filter(function(participant) {
                 return participant.selectedAnswer !== null;
             }).length;
-            return (answeredParticipants / (self.state.participants.length - 1) * 100) + '%';
-        }
+        };
+
+        self.answeredParticipantsPercentage = function() {
+            return (self.answeredParticipants() / (self.state.participants.length - 1) * 100) + '%';
+        };
+
+        self.hasAllParticipantsAnswered = function() {
+            return self.answeredParticipants() === self.state.participants.length - 1;
+        };
 
         if (localStorage.getItem('name')) {
             self.name = localStorage.getItem('name');

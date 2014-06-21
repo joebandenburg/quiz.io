@@ -43,8 +43,17 @@
                 </div>
                 <div class="navbar-left" ng-show="quiz.isLeader()">
                     <p class="navbar-text">You are the leader.</p>
-                    <button ng-click="quiz.nextQuestion()" class="btn btn-default navbar-btn">Next question</button>
-                    <button ng-click="quiz.revealAnswers()" class="btn btn-default navbar-btn">Reveal answers</button>
+                    <button ng-click="quiz.nextQuestion()"
+                            ng-show="(!quiz.state.question || quiz.state.answerRevealed) && quiz.state.questionIndex < quiz.state.questionCount - 1"
+                            class="btn btn-primary navbar-btn">
+                        Next question <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                    <button ng-click="quiz.revealAnswers()"
+                            ng-show="quiz.state.question && !quiz.state.answerRevealed"
+                            ng-class="{ 'btn-primary': quiz.hasAllParticipantsAnswered() }"
+                            class="btn btn-default navbar-btn">
+                        Reveal answers <span class="glyphicon glyphicon-eye-open"></span>
+                    </button>
                 </div>
             </div>
         </nav>
