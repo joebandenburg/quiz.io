@@ -41,17 +41,17 @@
                 <div class="navbar-text" ng-hide="quiz.isLeader()">
                     Score <span class="score badge">{{quiz.participant.score}}</span>
                 </div>
-                <div class="navbar-left" ng-show="quiz.isLeader()">
-                    <p class="navbar-text">You are the leader.</p>
+                <div ng-show="quiz.isLeader()">
+                    <p class="navbar-text navbar-left">You are the leader.</p>
                     <button ng-click="quiz.nextQuestion()"
                             ng-show="(!quiz.state.question || quiz.state.answerRevealed) && quiz.state.questionIndex < quiz.state.questionCount - 1"
-                            class="btn btn-primary navbar-btn">
+                            class="btn btn-primary navbar-btn navbar-right">
                         Next question <span class="glyphicon glyphicon-chevron-right"></span>
                     </button>
                     <button ng-click="quiz.revealAnswers()"
                             ng-show="quiz.state.question && !quiz.state.answerRevealed"
                             ng-class="{ 'btn-primary': quiz.hasAllParticipantsAnswered() }"
-                            class="btn btn-default navbar-btn">
+                            class="btn btn-default navbar-btn navbar-right">
                         Reveal answers <span class="glyphicon glyphicon-eye-open"></span>
                     </button>
                 </div>
