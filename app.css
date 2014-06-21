@@ -4,6 +4,7 @@ html, body {
 
 body {
     font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #222;
 }
 
 .login-page {
@@ -49,33 +50,28 @@ body {
     color: #fff;
 }
 
-.joining {
+.loading {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-left: -100px;
-    margin-top: -1.5em;
-    width: 200px;
-    height: 3em;
-    line-height: 3em;
-    text-align: center;
-    border-radius: 100px;
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-header {
-    margin: 0 -15px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #e7e7e7;
-    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 2000;
 }
 
-.content {
-    flex-grow: 2;
-    padding: 20px;
+.loading > div {
+    background-color: rgba(255, 255, 255, 1);
+    color: #555;
+    padding: 1em 2em;
+    border-radius: 3em;
+}
+
+nav {
+    margin: 0 -15px;
 }
 
 .page {
@@ -83,14 +79,27 @@ header {
 }
 
 .main-bar {
+    background-color: #fff;
+    padding-bottom: 15px;
 }
 
 .side-bar {
     background-color: #222;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     color: #fff;
-    box-shadow: inset 4px 0px 4px 0px rgba(0, 0, 0, 0.5);
-    height: 100%;
+    box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 768px) {
+    body {
+        background-color: #fff;
+    }
+
+    .side-bar {
+        min-height: 100%;
+        box-shadow: inset 4px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    }
 }
 
 .side-bar a {

@@ -2,8 +2,9 @@
     var app = angular.module('quiz.io', []);
 
     app.factory('socket', function ($rootScope) {
-        var socket = io.connect();
+        var socket = io();
         return {
+            socket: socket,
             on: function (eventName, callback) {
                 socket.on(eventName, function () {
                     var args = arguments;
@@ -25,67 +26,139 @@
         };
     });
 
+    var createUUID = function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    };
+
     app.controller('QuizController', function(socket, $sce) {
         var self = this;
 
         self.name = '';
-        self.joining = false;
-        self.joined = false;
-        self.participants = [];
-        self.id = null;
-        self.score = 0;
-        self.revealAnswer = false;
-
-        self.question = {
-            content: $sce.trustAsHtml('What is the value of <code>a</code> after executing <code>var a = 3;</code>?'),
-            points: 50,
-            answers: [{
-                content: $sce.trustAsHtml('<code>null</code>')
-            }, {
-                content: $sce.trustAsHtml('<code>undefined</code>')
-            }, {
-                content: $sce.trustAsHtml('<code>3</code>'),
-                correct: true
-            }, {
-                content: $sce.trustAsHtml('<code>Infinity</code>')
-            }]
+        self.loading = false;
+        self.state = {
+            participants: []
         };
+        self.participant = null;
+        self.selectedAnswer = null;
 
-        socket.on('joined', function(id) {
-            self.joining = false;
-            self.joined = true;
-            self.id = id;
+        var uuid;
+        if (localStorage.getItem('uuid')) {
+            uuid = localStorage.getItem('uuid');
+        } else {
+            uuid = createUUID();
+            localStorage.setItem('uuid', uuid);
+        }
+
+        socket.on('state changed', function(state) {
+            self.loading = false;
+            self.state = state;
+            self.participant = state.participants.filter(function(participant) {
+                return participant.uuid === uuid;
+            })[0];
+            if (self.participant) {
+                self.selectedAnswer = self.participant.selectedAnswer;
+            }
+            if (self.state.question) {
+                self.state.question.content = $sce.trustAsHtml(self.state.question.content);
+                self.state.question.answers = self.state.question.answers.map(function(answer) {
+                    return $sce.trustAsHtml(answer);
+                });
+            }
         });
 
-        socket.on('participants changed', function(participants) {
-            self.participants = participants;
+        socket.on('connect', function() {
+            self.loading = true;
+            socket.emit('bootstrap', uuid);
+        });
+
+        socket.on('reconnect', function() {
+            self.loading = true;
+            self.participant = null;
+            socket.emit('bootstrap', uuid);
+        });
+
+        socket.on('disconnect', function() {
+            self.loading = true;
         });
 
         self.join = function() {
-            self.joining = true;
+            self.loading = true;
             localStorage.setItem('name', self.name);
-            socket.emit('join', self.name);
+            socket.emit('join', {
+                name: self.name,
+                uuid: uuid
+            });
+        };
+
+        self.getNormalParticipants = function() {
+            var normalParticipants = self.state.participants.filter(function(participant) {
+                return !participant.isLeader;
+            });
+            normalParticipants.sort(function(a, b) {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                } else {
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    return 0;
+                }
+            });
+            return normalParticipants;
+        };
+
+        self.isLeader = function() {
+            if (self.participant) {
+                return self.participant.isLeader;
+            } else {
+                return false;
+            }
+        };
+
+        self.nextQuestion = function() {
+            socket.emit('next question');
+        };
+
+        self.revealAnswers = function() {
+            socket.emit('update scores');
         };
 
         self.selectAnswer = function(answer) {
             self.selectedAnswer = answer;
         };
 
-        self.isActive = function(answer) {
-            return self.selectedAnswer === answer || (self.revealAnswer && answer.correct);
+        self.confirmAnswer = function() {
+            socket.emit('answer', self.selectedAnswer);
         };
 
-        self.isCorrect = function(answer) {
-            return (self.revealAnswer && answer.correct);
+        self.wasCorrectAnswer = function() {
+            return self.state.answerRevealed && self.selectedAnswer === self.state.question.correctAnswer;
         };
 
-        self.isWrong = function(answer) {
-            return (self.selectedAnswer === answer && self.revealAnswer && !answer.correct);
+        self.wasWrongAnswer = function() {
+            return self.state.answerRevealed && self.selectedAnswer !== self.state.question.correctAnswer;
+        };
+
+        self.isAnswerActive = function(answer) {
+            return self.selectedAnswer === answer;
+        };
+
+        self.isAnswerCorrect = function(answer) {
+            return self.isAnswerActive(answer) && self.wasCorrectAnswer();
+        };
+
+        self.isAnswerWrong = function(answer) {
+            return self.isAnswerActive(answer) && self.wasWrongAnswer();
         };
 
         if (localStorage.getItem('name')) {
             self.name = localStorage.getItem('name');
-            self.join();
         }
     });
 })();
