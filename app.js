@@ -146,7 +146,7 @@
         };
 
         self.isAnswerActive = function(answer) {
-            return self.selectedAnswer === answer;
+            return self.selectedAnswer === answer || (self.isLeader() && self.state.answerRevealed && answer === self.state.question.correctAnswer);
         };
 
         self.isAnswerCorrect = function(answer) {
@@ -156,6 +156,13 @@
         self.isAnswerWrong = function(answer) {
             return self.isAnswerActive(answer) && self.wasWrongAnswer();
         };
+
+        self.answeredParticipantsPercentage = function() {
+            var answeredParticipants = self.state.participants.filter(function(participant) {
+                return participant.selectedAnswer !== null;
+            }).length;
+            return (answeredParticipants / (self.state.participants.length - 1) * 100) + '%';
+        }
 
         if (localStorage.getItem('name')) {
             self.name = localStorage.getItem('name');

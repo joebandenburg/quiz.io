@@ -22,14 +22,44 @@ http.listen(3000, function() {
 });
 
 var questions = [{
-    content: 'What is the value of <code>a</code> after executing <code>var a = 3;</code>?',
-    points: 50,
+    content: 'What is the capital of France?',
+    points: 10,
     correctAnswer: 2,
     answers: [
-        '<code>null</code>',
-        '<code>undefined</code>',
-        '<code>3</code>',
-        '<code>Infinity</code>'
+        'London',
+        'Earth',
+        'Paris',
+        'Spain'
+    ]
+}, {
+    content: 'What is the capital of Russia?',
+    points: 20,
+    correctAnswer: 1,
+    answers: [
+        'Saint Petersburg',
+        'Moscow',
+        'Kiev',
+        'Germany'
+    ]
+}, {
+    content: 'What is <code>2 * 2 * 2 * 2</code>?',
+    points: 20,
+    correctAnswer: 2,
+    answers: [
+        '<code>8</code>',
+        '<code>12</code>',
+        '<code>16</code>',
+        '<code>32</code>'
+    ]
+}, {
+    content: 'Guybrush Threepwood is a character from which adventure video game series?',
+    points: 50,
+    correctAnswer: 0,
+    answers: [
+        'Monkey Island',
+        'Sam &amp; Max',
+        'Grim Fandango',
+        'Maniac Mansion'
     ]
 }];
 

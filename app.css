@@ -136,6 +136,18 @@ nav {
     background-color: #464545;
 }
 
+.side-bar .progress {
+    height: 10px;
+}
+
+.side-bar .progress-bar {
+    background-color: #00bc8c;
+}
+
+.side-bar .glyphicon {
+    margin-right: 5px;
+}
+
 .question ol {
     counter-reset: list;
 }
@@ -150,20 +162,24 @@ nav {
     list-style: none;
 }
 
-.answer:before {
+.answer > .letter:before {
     content: counter(list, upper-alpha);
     counter-increment: list;
-    margin-right: 20px;
+    margin-right: 15px;
     display: inline-block;
     font-size: 2em;
 }
 
-.me {
-    color: #fff;
-    font-size: 20px;
-    margin: 10px 20px;
+.result-footer {
+    line-height: 2em;
 }
 
-.me a {
+.result {
+    font-size: 2em;
+    margin-right: 10px;
+    float: left;
+}
 
+.score {
+    margin-left: 10px;
 }

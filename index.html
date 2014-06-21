@@ -39,7 +39,7 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-text" ng-hide="quiz.isLeader()">
-                    Score <span class="badge">{{quiz.participant.score}}</span>
+                    Score <span class="score badge">{{quiz.participant.score}}</span>
                 </div>
                 <div class="navbar-left" ng-show="quiz.isLeader()">
                     <p class="navbar-text">You are the leader.</p>
@@ -49,7 +49,7 @@
             </div>
         </nav>
         <div class="question panel panel-default"
-             ng-class="{ 'panel-success': quiz.wasCorrectAnswer(), 'panel-danger': quiz.wasWrongAnswer() }"
+             ng-class="{ 'panel-success': !quiz.isLeader() && quiz.wasCorrectAnswer(), 'panel-danger': !quiz.isLeader() && quiz.wasWrongAnswer(), 'answer-revealed': quiz.state.answerRevealed }"
              ng-show="quiz.state.question">
             <div class="panel-heading">
                 <h3 class="panel-title pull-right">{{quiz.state.question.points}} points</h3>
@@ -59,21 +59,41 @@
             <ol class="list-group">
                 <a href class="list-group-item"
                    ng-repeat="answer in quiz.state.question.answers"
-                   ng-class="{ active: quiz.isAnswerActive($index), 'list-group-item-danger': quiz.isAnswerWrong($index), 'list-group-item-success': quiz.isAnswerCorrect($index) }"
+                   ng-class="{ active: quiz.isAnswerActive($index), 'list-group-item-danger': !quiz.isLeader() && quiz.isAnswerWrong($index), 'list-group-item-success': !quiz.isLeader() && quiz.isAnswerCorrect($index) }"
                    ng-click="quiz.selectAnswer($index)">
                     <li class="answer">
+                        <span class="letter"></span>
                         <div ng-bind-html="answer"></div>
                     </li>
                 </a>
             </ol>
-            <div class="panel-footer" ng-show="!quiz.isLeader()">
-                <button class="btn btn-primary" ng-click="quiz.confirmAnswer()" ng-disabled="!quiz.selectedAnswer">Submit answer</button>
+            <div class="panel-footer"
+                 ng-show="!quiz.isLeader() && !quiz.state.answerRevealed && quiz.participant.selectedAnswer === null && quiz.selectedAnswer !== null">
+                <button class="btn btn-primary" ng-click="quiz.confirmAnswer()">Submit answer</button>
+            </div>
+            <div class="panel-footer" ng-show="!quiz.isLeader() && !quiz.state.answerRevealed && quiz.participant.selectedAnswer">
+                Your answer has been submitted. Wait for others to submit their answers.
+            </div>
+            <div class="panel-footer result-footer" ng-show="!quiz.isLeader() && quiz.wasWrongAnswer()">
+                <span class="result glyphicon glyphicon-remove"></span>
+                Bad luck.
+            </div>
+            <div class="panel-footer result-footer" ng-show="!quiz.isLeader() && quiz.wasCorrectAnswer()">
+                <span class="result glyphicon glyphicon-ok"></span>
+                Good job! You earned {{quiz.state.question.points}} points.
             </div>
         </div>
         <h3 class="text-center text-muted" ng-hide="quiz.state.question || quiz.isLeader()">Waiting for the session to start.</h3>
         <h3 class="text-center text-muted" ng-hide="quiz.state.question || !quiz.isLeader()">Click <strong>next question</strong> to begin the session.</h3>
     </div>
     <div class="col-sm-3 side-bar">
+        <div ng-show="!quiz.state.answerRevealed">
+            <div class="progress">
+                <div class="progress-bar" ng-style="{ width: quiz.answeredParticipantsPercentage() }">
+
+                </div>
+            </div>
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Participants</h3>
@@ -82,7 +102,7 @@
                 <li class="list-group-item" ng-repeat="participant in quiz.getNormalParticipants()">
                     <span class="glyphicon glyphicon-user" ng-show="participant === quiz.participant"></span>
                     <span class="glyphicon glyphicon-exclamation-sign" ng-show="!participant.connected"></span>
-                    <span class="glyphicon glyphicon-ok" ng-show="participant.currentAnswer != null"></span>
+                    <span class="glyphicon glyphicon-ok" ng-show="!quiz.state.answerRevealed && participant.selectedAnswer != null"></span>
                     <span class="badge">{{participant.score}}</span>
                     {{participant.name}}
                 </li>
