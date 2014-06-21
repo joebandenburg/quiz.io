@@ -119,6 +119,11 @@ nav {
     background-color: #303030;
 }
 
+.side-bar .list-group-item {
+    transition: color 0.5s ease;
+    color: #fff;
+}
+
 .side-bar .panel-default {
     border-color: #464545;
 }
@@ -152,10 +157,6 @@ nav {
     counter-reset: list;
 }
 
-.question .list-group-item {
-    transition: background-color, 0.3s;
-}
-
 .question.disable-select-answer a {
     cursor: default;
 }
@@ -186,4 +187,8 @@ nav {
 
 .score {
     margin-left: 10px;
+}
+
+.side-bar .participant-disconnected {
+    color: #666;
 }
