@@ -80,6 +80,7 @@ var state = {
     questionCount: questions.length,
     questionIndex: null,
     answerRevealed: false,
+    showResults: false,
     question: null
 };
 
@@ -141,6 +142,12 @@ io.on('connection', function(socket) {
             }
         });
         state.answerRevealed = true;
+        broadcastState();
+    });
+    socket.on('show results', function() {
+        state.questionIndex++;
+        state.question = null;
+        state.showResults = true;
         broadcastState();
     });
     socket.on('disconnect', function() {

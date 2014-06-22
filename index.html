@@ -57,6 +57,12 @@
                             class="btn btn-default navbar-btn navbar-right">
                         Reveal answer <span class="glyphicon glyphicon-eye-open"></span>
                     </button>
+                    <button ng-click="quiz.showResults()"
+                            ng-show="quiz.state.questionIndex === quiz.state.questionCount - 1 && quiz.state.answerRevealed"
+                            ng-class="{ 'btn-primary': quiz.hasAllParticipantsAnswered() }"
+                            class="btn btn-default navbar-btn navbar-right">
+                        Show results <span class="glyphicon glyphicon-stats"></span>
+                    </button>
                 </div>
             </div>
         </nav>
@@ -99,8 +105,12 @@
                 Good job! You earned {{quiz.state.question.points}} points.
             </div>
         </div>
-        <h3 class="text-center text-muted" ng-hide="quiz.state.question || quiz.isLeader()">Waiting for the session to start.</h3>
-        <h3 class="text-center text-muted" ng-hide="quiz.state.question || !quiz.isLeader()">Click <strong>next question</strong> to begin the session.</h3>
+        <h3 class="text-center text-muted" ng-hide="quiz.state.showResults || quiz.state.question || quiz.isLeader()">Waiting for the session to start.</h3>
+        <h3 class="text-center text-muted" ng-hide="quiz.state.showResults || quiz.state.question || !quiz.isLeader()">Click <strong>next question</strong> to begin the session.</h3>
+        <div class="container-fluid" ng-show="quiz.state.showResults">
+            <h3>The winner is <strong>{{quiz.getNormalParticipants()[0].name}}</strong> with {{quiz.getNormalParticipants()[0].score}} points.</h3>
+            <h4 ng-show="!quiz.isLeader()">You came <strong>{{quiz.getNormalParticipants().indexOf(quiz.participant) + 1 | ordinal}}</strong>.</h4>
+        </div>
     </div>
     <div class="col-sm-3 side-bar">
         <div class="panel panel-default">

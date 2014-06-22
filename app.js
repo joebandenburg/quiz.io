@@ -26,6 +26,14 @@
         };
     });
 
+    app.filter('ordinal', function() {
+        return function(input) {
+            var s=["th","st","nd","rd"],
+                v=input%100;
+            return input+(s[(v-20)%10]||s[v]||s[0]);
+        }
+    });
+
     var createUUID = function() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
@@ -130,6 +138,10 @@
 
         self.revealAnswers = function() {
             socket.emit('update scores');
+        };
+
+        self.showResults = function() {
+            socket.emit('show results');
         };
 
         self.canSelectAnswer = function() {
