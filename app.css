@@ -80,7 +80,8 @@ nav .progress {
     width: 20%;
     max-width: 200px;
     height: 10px;
-    background-color: #555555;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
 }
 
 .navbar-text {
