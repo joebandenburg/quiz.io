@@ -96,13 +96,6 @@
         <h3 class="text-center text-muted" ng-hide="quiz.state.question || !quiz.isLeader()">Click <strong>next question</strong> to begin the session.</h3>
     </div>
     <div class="col-sm-3 side-bar">
-        <div ng-show="!quiz.state.answerRevealed">
-            <div class="progress">
-                <div class="progress-bar" ng-style="{ width: quiz.answeredParticipantsPercentage() }">
-
-                </div>
-            </div>
-        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Participants</h3>
@@ -120,6 +113,12 @@
                     <span class="text-muted">No participants yet</span>
                 </li>
             </ul>
+        </div>
+        <div ng-show="!quiz.state.answerRevealed">
+            <p class="text-muted">{{quiz.answeredParticipants()}} of {{quiz.getNormalParticipants().length}} participants answered</p>
+            <div class="progress">
+                <div class="progress-bar" ng-style="{ width: quiz.answeredParticipantsPercentage() }"></div>
+            </div>
         </div>
     </div>
 </div>
