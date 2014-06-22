@@ -180,6 +180,10 @@
             return self.answeredParticipants() === self.state.participants.length - 1;
         };
 
+        self.questionsPercentage = function() {
+            return ((self.state.questionIndex / self.state.questionCount) * 100) + '%';
+        };
+
         if (localStorage.getItem('name')) {
             self.name = localStorage.getItem('name');
         }

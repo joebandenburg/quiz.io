@@ -41,6 +41,9 @@
                 <div class="navbar-text" ng-hide="quiz.isLeader()">
                     Score <span class="score badge">{{quiz.participant.score}}</span>
                 </div>
+                <div class="progress navbar-text pull-right">
+                    <div class="progress-bar" ng-style="{ width: quiz.questionsPercentage() }"></div>
+                </div>
                 <div ng-show="quiz.isLeader()">
                     <p class="navbar-text navbar-left">You are the leader.</p>
                     <button ng-click="quiz.nextQuestion()"
