@@ -77,8 +77,12 @@
                 </a>
             </ol>
             <div class="panel-footer"
+                 ng-show="!quiz.isLeader() && !quiz.state.answerRevealed && quiz.selectedAnswer === null">
+                Select an answer.
+            </div>
+            <div class="panel-footer"
                  ng-show="!quiz.isLeader() && !quiz.state.answerRevealed && quiz.participant.selectedAnswer === null && quiz.selectedAnswer !== null">
-                <button class="btn btn-primary" ng-click="quiz.confirmAnswer()">Submit answer</button>
+                <button class="btn btn-primary" ng-click="quiz.confirmAnswer()">Submit</button>
             </div>
             <div class="panel-footer" ng-show="!quiz.isLeader() && !quiz.state.answerRevealed && quiz.participant.selectedAnswer">
                 Your answer has been submitted. Wait for others to submit their answers.
