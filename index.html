@@ -116,6 +116,9 @@
                     <span class="badge">{{participant.score}}</span>
                     {{participant.name}}
                 </li>
+                <li class="list-group-item" ng-show="quiz.getNormalParticipants().length === 0">
+                    <span class="text-muted">No participants yet</span>
+                </li>
             </ul>
         </div>
     </div>
