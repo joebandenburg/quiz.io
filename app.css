@@ -178,16 +178,22 @@ nav .progress {
 
 .answer {
     display: flex;
-    align-items: center;
     list-style: none;
 }
 
 .answer > .letter:before {
     content: counter(list, upper-alpha);
     counter-increment: list;
-    margin-right: 15px;
-    display: inline-block;
+}
+
+.answer > .letter {
     font-size: 2em;
+    flex-basis: 35px;
+    flex-shrink: 0;
+}
+
+.answer-content {
+    align-self: center;
 }
 
 .answer-letter:before {
