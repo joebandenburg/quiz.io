@@ -1,8 +1,8 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http, {
-    pingTimeout: 500,
-    pingInterval: 500
+    pingTimeout: 1000,
+    pingInterval: 1000
 });
 
 app.get('/', function(req, res) {
@@ -60,6 +60,16 @@ var questions = [{
         'Sam &amp; Max',
         'Grim Fandango',
         'Maniac Mansion'
+    ]
+}, {
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae egestas eros, at porttitor dolor. Sed eleifend vel arcu at egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquam aliquam imperdiet. Aliquam posuere, felis eu sagittis pharetra, mi tortor feugiat lectus, non luctus purus lorem a felis. Ut sed nisl a orci adipiscing dignissim. Integer ac orci egestas mi tempor mattis. Nam posuere et ante in tempus. Ut ac lorem fringilla, pharetra orci eget, imperdiet mi. Sed fringilla tellus eget aliquet luctus.',
+    points: 0,
+    correctAnswer: 0,
+    answers: [
+        'Pellentesque sollicitudin, leo ut porta pellentesque, erat urna ullamcorper magna, eu aliquam felis est ac massa. Donec egestas varius velit eu iaculis. In ut nulla eleifend ipsum varius posuere at eget enim. Cras ornare odio eget mi hendrerit interdum. In condimentum, arcu nec faucibus condimentum, neque turpis commodo magna, quis commodo ante ipsum vel arcu. Pellentesque accumsan et sapien vel tempor. Integer vitae molestie leo. Suspendisse eget purus vehicula, vehicula dui at, aliquam risus. Morbi pretium leo volutpat mi scelerisque consequat. Nullam et lectus neque.',
+        'Quisque id lectus eu purus ultricies porttitor at at nisi. Quisque semper leo ut turpis laoreet porttitor. Fusce ac eleifend nibh. Nam convallis convallis blandit. Nam id nisi eu nibh condimentum volutpat. Donec nec nibh vitae erat fringilla vulputate et at nibh. Sed consequat lacus vel ligula scelerisque, at consequat lorem aliquet. Morbi varius sollicitudin quam, et pulvinar purus interdum quis. Integer facilisis ultricies quam, eget rutrum lacus malesuada id.',
+        'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in lacus eu tellus commodo lacinia et id risus. Proin ornare orci at diam porttitor, ac venenatis ipsum pellentesque. Praesent scelerisque quis lectus et blandit. Ut vitae mattis neque, at varius tellus. Vivamus sit amet augue sit amet purus sollicitudin volutpat in id lorem. Duis feugiat turpis sit amet sapien euismod, quis euismod orci malesuada. Duis nec lectus nec mi tincidunt rhoncus. Suspendisse viverra vitae erat id sollicitudin.',
+        'Fusce ultrices in risus ac elementum. Etiam tincidunt scelerisque augue ac faucibus. Integer vel vulputate nunc. In hac habitasse platea dictumst. Nulla facilisi. Proin congue quam quis elit pulvinar pellentesque. Suspendisse quis tellus ut neque commodo pellentesque. Fusce ullamcorper in elit vitae mollis. Nunc euismod diam tortor, sit amet condimentum quam vulputate vel. Nullam ac ipsum orci.'
     ]
 }];
 
