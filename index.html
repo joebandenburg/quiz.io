@@ -121,7 +121,7 @@
                 </li>
             </ul>
         </div>
-        <div ng-show="!quiz.state.answerRevealed">
+        <div ng-show="quiz.state.question && !quiz.state.answerRevealed" class="container-fluid">
             <p class="text-muted">{{quiz.answeredParticipants()}} of {{quiz.getNormalParticipants().length}} participants answered</p>
             <div class="progress">
                 <div class="progress-bar" ng-style="{ width: quiz.answeredParticipantsPercentage() }"></div>
