@@ -54,12 +54,15 @@
 
         socket.on('state changed', function(state) {
             self.loading = false;
+            var questionChanged = (self.state.questionIndex !== state.questionIndex);
             self.state = state;
             self.participant = state.participants.filter(function(participant) {
                 return participant.uuid === uuid;
             })[0];
-            if (self.participant && self.participant.selectedAnswer !== null) {
-                self.selectedAnswer = self.participant.selectedAnswer;
+            if (self.participant) {
+                if (questionChanged || self.participant.selectedAnswer !== null) {
+                    self.selectedAnswer = self.participant.selectedAnswer;
+                }
             }
             if (self.state.question) {
                 self.state.question.content = $sce.trustAsHtml(self.state.question.content);
