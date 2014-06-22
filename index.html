@@ -85,7 +85,7 @@
             </div>
             <div class="panel-footer result-footer" ng-show="!quiz.isLeader() && quiz.wasWrongAnswer()">
                 <span class="result glyphicon glyphicon-remove"></span>
-                Bad luck.
+                Bad luck. The correct answer was <span class="answer-letter" ng-class="'answer-letter-' + quiz.state.question.correctAnswer"></span>.
             </div>
             <div class="panel-footer result-footer" ng-show="!quiz.isLeader() && quiz.wasCorrectAnswer()">
                 <span class="result glyphicon glyphicon-ok"></span>

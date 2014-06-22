@@ -175,6 +175,15 @@ nav {
     font-size: 2em;
 }
 
+.answer-letter:before {
+    content: counter(letter, upper-alpha);
+}
+
+.answer-letter-0 { counter-reset: letter 1; }
+.answer-letter-1 { counter-reset: letter 2; }
+.answer-letter-2 { counter-reset: letter 3; }
+.answer-letter-3 { counter-reset: letter 4; }
+
 .result-footer {
     line-height: 2em;
 }
@@ -192,3 +201,4 @@ nav {
 .side-bar .participant-disconnected {
     color: #666;
 }
+
