@@ -103,9 +103,9 @@
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="participant in quiz.getNormalParticipants()"
                         ng-class="{ 'participant-disconnected': !participant.connected }">
-                    <span class="glyphicon glyphicon-user" ng-show="participant === quiz.participant"></span>
-                    <span class="glyphicon glyphicon-exclamation-sign" ng-show="!participant.connected"></span>
-                    <span class="glyphicon glyphicon-ok" ng-show="!quiz.state.answerRevealed && participant.selectedAnswer != null"></span>
+                    <span title="This is you" class="glyphicon glyphicon-user" ng-show="participant === quiz.participant"></span>
+                    <span title="Participant is not connected" class="glyphicon glyphicon-exclamation-sign" ng-show="!participant.connected"></span>
+                    <span title="Participant has answered" class="glyphicon glyphicon-ok" ng-show="!quiz.state.answerRevealed && participant.selectedAnswer != null"></span>
                     <span class="badge">{{participant.score}}</span>
                     {{participant.name}}
                 </li>
